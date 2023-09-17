@@ -28,17 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pan_keret = new System.Windows.Forms.Panel();
             this.tb_sorok = new System.Windows.Forms.TextBox();
             this.tb_oszlopok = new System.Windows.Forms.TextBox();
             this.lb_sorok = new System.Windows.Forms.Label();
             this.lb_oszlopok = new System.Windows.Forms.Label();
             this.btn_generate = new System.Windows.Forms.Button();
+            this.Kepek = new System.Windows.Forms.ImageList(this.components);
+            this.Nbtn_test = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pan_keret
             // 
-            this.pan_keret.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.pan_keret.BackColor = System.Drawing.Color.Transparent;
             this.pan_keret.Location = new System.Drawing.Point(3, 37);
             this.pan_keret.Name = "pan_keret";
             this.pan_keret.Size = new System.Drawing.Size(631, 315);
@@ -86,6 +90,27 @@
             this.btn_generate.UseVisualStyleBackColor = true;
             this.btn_generate.Click += new System.EventHandler(this.btn_generate_Click);
             // 
+            // Kepek
+            // 
+            this.Kepek.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("Kepek.ImageStream")));
+            this.Kepek.TransparentColor = System.Drawing.Color.Transparent;
+            this.Kepek.Images.SetKeyName(0, "Fu_kezdemeny.png");
+            this.Kepek.Images.SetKeyName(1, "Fu_kifejlett.png");
+            this.Kepek.Images.SetKeyName(2, "Fu_zsenge.png");
+            this.Kepek.Images.SetKeyName(3, "Nyul_sus.png");
+            this.Kepek.Images.SetKeyName(4, "Roka_sus.png");
+            // 
+            // Nbtn_test
+            // 
+            this.Nbtn_test.Enabled = false;
+            this.Nbtn_test.Location = new System.Drawing.Point(638, 8);
+            this.Nbtn_test.Name = "Nbtn_test";
+            this.Nbtn_test.Size = new System.Drawing.Size(109, 23);
+            this.Nbtn_test.TabIndex = 5;
+            this.Nbtn_test.Text = "No more róka";
+            this.Nbtn_test.UseVisualStyleBackColor = true;
+            this.Nbtn_test.Click += new System.EventHandler(this.Nbtn_test_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -93,6 +118,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(910, 626);
+            this.Controls.Add(this.Nbtn_test);
             this.Controls.Add(this.btn_generate);
             this.Controls.Add(this.lb_oszlopok);
             this.Controls.Add(this.lb_sorok);
@@ -114,6 +140,8 @@
         private System.Windows.Forms.Label lb_sorok;
         private System.Windows.Forms.Label lb_oszlopok;
         private System.Windows.Forms.Button btn_generate;
+        private System.Windows.Forms.ImageList Kepek;
+        private System.Windows.Forms.Button Nbtn_test;
     }
 }
 

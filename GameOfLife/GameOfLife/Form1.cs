@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace GameOfLife
     public partial class Form1 : Form
     {
         Random rnd = new Random();
+        KeretAdat Keret;
         public Form1()
         {           
             InitializeComponent();
@@ -20,6 +22,7 @@ namespace GameOfLife
 
         private void btn_generate_Click(object sender, EventArgs e)
         {
+            pan_keret.Controls.Clear();
             int oszlop;
             int sorok;
             try
@@ -45,7 +48,10 @@ namespace GameOfLife
                 }
             }
 
-            PictureBox[,] fuvek_kepek = new PictureBox[sorok, oszlop];
+            PictureBox[,] keretLista = new PictureBox[sorok, oszlop];
+            int[,] allat = new int[sorok, oszlop];
+            int[,] fu = new int[sorok, oszlop];
+
             pan_keret.Size = new Size(oszlop * 50, sorok * 50);
 
             for (int i = 0; i < oszlop; i++)
@@ -57,43 +63,44 @@ namespace GameOfLife
                     kep.Size = new Size(50, 50);
                     kep.BorderStyle = BorderStyle.FixedSingle;
                     kep.Location = new Point(i * 50, j * 50);
-                    kep.Visible = true;
-                    switch (rnd.Next(1,4))
+                    switch (rnd.Next(0, 4))
                     {
+                        case 0:
+                            fu[j, i] = 0;
+                            break;
                         case 1:
-                            kep.BackColor = Color.Green;
+                            fu[j, i] = 1;
                             break;
                         case 2:
-                            kep.BackColor = Color.Red;
-                            break;
-                        case 3:
-                            kep.BackColor = Color.Blue;
+                            fu[j, i] = 2;
                             break;
                         default:
-                            kep.BackColor = Color.Transparent;
                             break;
                     }
-                    fuvek_kepek[j,i] = kep;
-                }
-            }
-
-            PictureBox[,] allatok_kepek = new PictureBox[sorok, oszlop];
-
-            for (int i = 0; i < oszlop; i++)
-            {
-                for (int j = 0; j < sorok; j++)
-                {
-                    PictureBox kep = new PictureBox();
-                    pan_keret.Controls.Add(kep);
-                    kep.Size = new Size(50, 50);
-                    kep.BorderStyle = BorderStyle.FixedSingle;
-                    kep.Location = new Point(i * 50, j * 50);
+                    switch (rnd.Next(1, 11))
+                    {
+                        case 3:
+                            allat[j, i] = 3;
+                            break;
+                        case 4:
+                            allat[j, i] = 4;
+                            break;
+                        default:
+                            break;
+                    }
                     kep.Visible = true;
-                    kep.BackColor = fuvek_kepek[j,i].BackColor;
-                    kep.BringToFront();
-                    allatok_kepek[j, i] = kep;
+                    keretLista[j,i] = kep;
                 }
             }
+            Keret = new KeretAdat(keretLista,fu,allat,Kepek);
+            Nbtn_test.Enabled = true;
+            Keret.Frissites();
+                       
+        }
+
+        private void Nbtn_test_Click(object sender, EventArgs e)
+        {
+            Keret.NoRoka();
         }
     }
 }
