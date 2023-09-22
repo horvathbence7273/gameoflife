@@ -97,8 +97,8 @@
             this.Kepek.Images.SetKeyName(0, "Fu_kezdemeny.png");
             this.Kepek.Images.SetKeyName(1, "Fu_kifejlett.png");
             this.Kepek.Images.SetKeyName(2, "Fu_zsenge.png");
-            this.Kepek.Images.SetKeyName(3, "Nyul_sus.png");
-            this.Kepek.Images.SetKeyName(4, "Roka_sus.png");
+            this.Kepek.Images.SetKeyName(3, "Nyul.png");
+            this.Kepek.Images.SetKeyName(4, "Roka.png");
             // 
             // Nbtn_test
             // 
