@@ -78,5 +78,10 @@ namespace GameOfLife
                 }
             }
         }
+
+        public void PullTeszt()
+        {
+            //pullteszt
+        }
     }
 }
