@@ -38,6 +38,7 @@
             this.btn_generate = new System.Windows.Forms.Button();
             this.Kepek = new System.Windows.Forms.ImageList(this.components);
             this.Nbtn_test = new System.Windows.Forms.Button();
+            this.start = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pan_keret
@@ -111,6 +112,16 @@
             this.Nbtn_test.UseVisualStyleBackColor = true;
             this.Nbtn_test.Click += new System.EventHandler(this.Nbtn_test_Click);
             // 
+            // start
+            // 
+            this.start.Location = new System.Drawing.Point(753, 8);
+            this.start.Name = "start";
+            this.start.Size = new System.Drawing.Size(110, 23);
+            this.start.TabIndex = 6;
+            this.start.Text = "Indítás";
+            this.start.UseVisualStyleBackColor = true;
+            this.start.Click += new System.EventHandler(this.start_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -118,6 +129,7 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(910, 626);
+            this.Controls.Add(this.start);
             this.Controls.Add(this.Nbtn_test);
             this.Controls.Add(this.btn_generate);
             this.Controls.Add(this.lb_oszlopok);
@@ -142,6 +154,7 @@
         private System.Windows.Forms.Button btn_generate;
         private System.Windows.Forms.ImageList Kepek;
         private System.Windows.Forms.Button Nbtn_test;
+        private System.Windows.Forms.Button start;
     }
 }
 

@@ -102,5 +102,10 @@ namespace GameOfLife
         {
             Keret.NoRoka();
         }
+
+        private void start_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

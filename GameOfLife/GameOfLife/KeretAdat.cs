@@ -59,5 +59,24 @@ namespace GameOfLife
             }
             Frissites();
         }
+
+        public void NyulMove()
+        {
+            for (int i = 0; i < allatKeret.GetLength(0); i++)
+            {
+                for (int j = 0; j < allatKeret.GetLength(1); j++)
+                {
+                    if (allatKeret[j,i]==3)
+                    {
+                        // stringgé alakítani ha megvan az éhség rendszer
+                        int[] seged = { allatKeret[j - 1, i+1], allatKeret[j-1,i-1], allatKeret[j+1,i-1], allatKeret[j+1,i+1] };
+                        for (int k = 0;  k < 4;  k++)
+                        {
+                            
+                        }
+                    }
+                }
+            }
+        }
     }
 }
