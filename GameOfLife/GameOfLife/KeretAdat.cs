@@ -59,5 +59,10 @@ namespace GameOfLife
             }
             Frissites();
         }
+
+        public void PullTeszt()
+        {
+            //pullteszt
+        }
     }
 }
