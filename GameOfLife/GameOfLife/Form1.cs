@@ -49,7 +49,7 @@ namespace GameOfLife
             }
 
             PictureBox[,] keretLista = new PictureBox[sorok, oszlop];
-            string[,,] adatKeret = new string[sorok, oszlop,3];
+            string[,,] adatKeret = new string[sorok, oszlop,4];
 
             pan_keret.Size = new Size(oszlop * 50, sorok * 50);
 
@@ -81,16 +81,20 @@ namespace GameOfLife
                         case 3:
                             adatKeret[j, i, 0] = "Nyul";
                             adatKeret[j, i, 1] = "5";
+                            adatKeret[j, i, 3] = "0";
                             break;
                         case 4:
                             adatKeret[j, i, 0] = "Roka";
                             adatKeret[j, i, 1] = "10";
+                            adatKeret[j, i, 3] = "0";
                             break;
                         default:
                             adatKeret[j, i, 0] = "Fu";
                             adatKeret[j, i, 1] = "0";
+                            adatKeret[j, i, 3] = "0";
                             break;
                     }
+
                     kep.Visible = true;
                     keretLista[j,i] = kep;
                 }

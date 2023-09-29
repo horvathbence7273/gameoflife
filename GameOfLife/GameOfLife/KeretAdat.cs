@@ -41,6 +41,7 @@ namespace GameOfLife
                         kepKeret[j, i].Image = kepLista.Images[4];
                     }
                     kepKeret[j, i].BackgroundImage = kepLista.Images[int.Parse(adatKeret[j, i, 2])];
+                    adatKeret[j, i, 3] = "0";
                 }
             }
         }
