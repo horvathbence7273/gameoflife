@@ -49,8 +49,7 @@ namespace GameOfLife
             }
 
             PictureBox[,] keretLista = new PictureBox[sorok, oszlop];
-            int[,] allat = new int[sorok, oszlop];
-            int[,] fu = new int[sorok, oszlop];
+            string[,,] adatKeret = new string[sorok, oszlop,3];
 
             pan_keret.Size = new Size(oszlop * 50, sorok * 50);
 
@@ -63,16 +62,16 @@ namespace GameOfLife
                     kep.Size = new Size(50, 50);
                     kep.BorderStyle = BorderStyle.FixedSingle;
                     kep.Location = new Point(i * 50, j * 50);
-                    switch (rnd.Next(0, 4))
+                    switch (rnd.Next(0, 3))
                     {
                         case 0:
-                            fu[j, i] = 0;
+                            adatKeret[j, i, 2] = "0";
                             break;
                         case 1:
-                            fu[j, i] = 1;
+                            adatKeret[j, i, 2] = "1";
                             break;
                         case 2:
-                            fu[j, i] = 2;
+                            adatKeret[j, i, 2] = "2";
                             break;
                         default:
                             break;
@@ -80,19 +79,23 @@ namespace GameOfLife
                     switch (rnd.Next(1, 11))
                     {
                         case 3:
-                            allat[j, i] = 3;
+                            adatKeret[j, i, 0] = "Nyul";
+                            adatKeret[j, i, 1] = "5";
                             break;
                         case 4:
-                            allat[j, i] = 4;
+                            adatKeret[j, i, 0] = "Roka";
+                            adatKeret[j, i, 1] = "10";
                             break;
                         default:
+                            adatKeret[j, i, 0] = "Fu";
+                            adatKeret[j, i, 1] = "0";
                             break;
                     }
                     kep.Visible = true;
                     keretLista[j,i] = kep;
                 }
             }
-            Keret = new KeretAdat(keretLista,fu,allat,Kepek);
+            Keret = new KeretAdat(keretLista,adatKeret,Kepek);
             Nbtn_test.Enabled = true;
             Keret.Frissites();
                        

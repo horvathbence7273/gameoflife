@@ -12,15 +12,13 @@ namespace GameOfLife
         //ez a class tárolja el, hogy a keretben hol mi van. Majd ide rakjatok function-öket
 
         public PictureBox[,] kepKeret { get; set; }
-        public int[,] fuKeret { get; set; }
-        public int[,] allatKeret { get; set; }
+        public string[,,] adatKeret { get; set; }
         public ImageList kepLista { get; set; }
 
-        public KeretAdat(PictureBox[,] lista, int[,] fu, int[,] allat, ImageList kepek)
+        public KeretAdat(PictureBox[,] lista, string[,,] adat, ImageList kepek)
         {
             kepKeret = lista;
-            fuKeret = fu;
-            allatKeret = allat;
+            adatKeret = adat;
             kepLista = kepek;
         }
 
@@ -30,15 +28,19 @@ namespace GameOfLife
             {
                 for (int j = 0; j < kepKeret.GetLength(1); j++)
                 {
-                    if (allatKeret[j, i] == 0)
+                    if (adatKeret[j, i, 0] == "Fu")
                     {
                         kepKeret[j, i].Image = null;
                     }
+                    else if(adatKeret[j, i, 0] == "Nyul")
+                    {
+                        kepKeret[j, i].Image = kepLista.Images[3];
+                    }
                     else
                     {
-                        kepKeret[j, i].Image = kepLista.Images[allatKeret[j,i]];
+                        kepKeret[j, i].Image = kepLista.Images[4];
                     }
-                    kepKeret[j, i].BackgroundImage = kepLista.Images[fuKeret[j, i]];
+                    kepKeret[j, i].BackgroundImage = kepLista.Images[int.Parse(adatKeret[j, i, 2])];
                 }
             }
         }
@@ -47,29 +49,30 @@ namespace GameOfLife
         {
             //ez csak teszt, nyugottan ki lehet törölni a gombbal együtt.
 
-            for (int i = 0; i < allatKeret.GetLength(0); i++)
+            for (int i = 0; i < adatKeret.GetLength(0); i++)
             {
-                for (int j = 0; j < allatKeret.GetLength(1); j++)
+                for (int j = 0; j < adatKeret.GetLength(1); j++)
                 {
-                    if (allatKeret[j, i] == 4)
+                    if (adatKeret[j, i, 0] == "Roka")
                     {
-                        allatKeret[j, i] = 0;
+                        adatKeret[j, i, 0] = "Fu";
                     }
                 }
             }
             Frissites();
         }
 
+        /*
         public void NyulMove()
         {
-            for (int i = 0; i < allatKeret.GetLength(0); i++)
+            for (int i = 0; i < adatKeret.GetLength(0); i++)
             {
-                for (int j = 0; j < allatKeret.GetLength(1); j++)
+                for (int j = 0; j < adatKeret.GetLength(1); j++)
                 {
-                    if (allatKeret[j,i]==3)
+                    if (adatKeret[j,i]==3)
                     {
                         // stringgé alakítani ha megvan az éhség rendszer
-                        int[] seged = { allatKeret[j - 1, i+1], allatKeret[j-1,i-1], allatKeret[j+1,i-1], allatKeret[j+1,i+1] };
+                        int[] seged = { adatKeret[j - 1, i+1], adatKeret[j-1,i-1], adatKeret[j+1,i-1], adatKeret[j+1,i+1] };
                         for (int k = 0;  k < 4;  k++)
                         {
                             
@@ -79,6 +82,7 @@ namespace GameOfLife
             }
         }
 
+        */
         public void PullTeszt()
         {
             //pullteszt
