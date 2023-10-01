@@ -14,7 +14,7 @@ namespace GameOfLife
     public partial class Form1 : Form
     {
         Random rnd = new Random();
-        KeretAdat Keret;
+        List<KeretAdat[]> Keret;
         public Form1()
         {           
             InitializeComponent();
@@ -48,66 +48,76 @@ namespace GameOfLife
                 }
             }
 
-            PictureBox[,] keretLista = new PictureBox[sorok, oszlop];
-            string[,,] adatKeret = new string[sorok, oszlop,4];
+            Keret = new List<KeretAdat[]>();
 
-            pan_keret.Size = new Size(oszlop * 50, sorok * 50);
 
             for (int i = 0; i < oszlop; i++)
             {
+                KeretAdat[] oszlopKeret = new KeretAdat[sorok];
+
                 for (int j = 0; j < sorok; j++) 
-                { 
+                {
                     PictureBox kep = new PictureBox();
                     pan_keret.Controls.Add(kep);
                     kep.Size = new Size(50, 50);
                     kep.BorderStyle = BorderStyle.FixedSingle;
                     kep.Location = new Point(i * 50, j * 50);
-                    switch (rnd.Next(0, 3))
-                    {
-                        case 0:
-                            adatKeret[j, i, 2] = "0";
-                            break;
-                        case 1:
-                            adatKeret[j, i, 2] = "1";
-                            break;
-                        case 2:
-                            adatKeret[j, i, 2] = "2";
-                            break;
-                        default:
-                            break;
-                    }
+                    kep.Visible = true;
+
+                    string allat;
+                    int ehesseg;
+                    int fuAllapot;
+
                     switch (rnd.Next(1, 11))
                     {
                         case 3:
-                            adatKeret[j, i, 0] = "Nyul";
-                            adatKeret[j, i, 1] = "5";
-                            adatKeret[j, i, 3] = "0";
+                            allat = "Nyul";
+                            ehesseg = 5;
                             break;
                         case 4:
-                            adatKeret[j, i, 0] = "Roka";
-                            adatKeret[j, i, 1] = "10";
-                            adatKeret[j, i, 3] = "0";
+                            allat = "Roka";
+                            ehesseg = 10;
                             break;
                         default:
-                            adatKeret[j, i, 0] = "Fu";
-                            adatKeret[j, i, 1] = "0";
-                            adatKeret[j, i, 3] = "0";
+                            allat = null;
+                            ehesseg = 0;
                             break;
                     }
-
-                    kep.Visible = true;
-                    keretLista[j,i] = kep;
+                    switch (rnd.Next(0, 3))
+                    {
+                        case 0:
+                            fuAllapot = 0;
+                            break;
+                        case 1:
+                            fuAllapot = 1;
+                            break;
+                        default:
+                            fuAllapot = 2;
+                            break;
+                    }
+                    oszlopKeret[j] = new KeretAdat(allat, ehesseg, fuAllapot, kep, il_Kepek);
+                }
+                Keret.Add(oszlopKeret);
+            }
+            Nbtn_test.Enabled = true;
+            foreach (var item in Keret)
+            {
+                foreach (var iitem in item)
+                {
+                    iitem.Frissites();
                 }
             }
-            Keret = new KeretAdat(keretLista,adatKeret,Kepek);
-            Nbtn_test.Enabled = true;
-            Keret.Frissites();
-                       
         }
 
         private void Nbtn_test_Click(object sender, EventArgs e)
         {
-            Keret.NoRoka();
+            foreach (var item in Keret)
+            {
+                foreach(var iitem in item)
+                {
+                    iitem.NoRoka();
+                }
+            }
         }
 
         private void start_Click(object sender, EventArgs e)

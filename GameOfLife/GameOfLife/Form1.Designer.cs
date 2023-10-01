@@ -36,13 +36,14 @@
             this.lb_sorok = new System.Windows.Forms.Label();
             this.lb_oszlopok = new System.Windows.Forms.Label();
             this.btn_generate = new System.Windows.Forms.Button();
-            this.Kepek = new System.Windows.Forms.ImageList(this.components);
+            this.il_Kepek = new System.Windows.Forms.ImageList(this.components);
             this.Nbtn_test = new System.Windows.Forms.Button();
             this.start = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pan_keret
             // 
+            this.pan_keret.AutoSize = true;
             this.pan_keret.BackColor = System.Drawing.Color.Transparent;
             this.pan_keret.Location = new System.Drawing.Point(3, 37);
             this.pan_keret.Name = "pan_keret";
@@ -91,15 +92,15 @@
             this.btn_generate.UseVisualStyleBackColor = true;
             this.btn_generate.Click += new System.EventHandler(this.btn_generate_Click);
             // 
-            // Kepek
+            // il_Kepek
             // 
-            this.Kepek.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("Kepek.ImageStream")));
-            this.Kepek.TransparentColor = System.Drawing.Color.Transparent;
-            this.Kepek.Images.SetKeyName(0, "Fu_kezdemeny.png");
-            this.Kepek.Images.SetKeyName(1, "Fu_kifejlett.png");
-            this.Kepek.Images.SetKeyName(2, "Fu_zsenge.png");
-            this.Kepek.Images.SetKeyName(3, "Nyul.png");
-            this.Kepek.Images.SetKeyName(4, "Roka.png");
+            this.il_Kepek.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("il_Kepek.ImageStream")));
+            this.il_Kepek.TransparentColor = System.Drawing.Color.Transparent;
+            this.il_Kepek.Images.SetKeyName(0, "Fu_kezdemeny.png");
+            this.il_Kepek.Images.SetKeyName(1, "Fu_kifejlett.png");
+            this.il_Kepek.Images.SetKeyName(2, "Fu_zsenge.png");
+            this.il_Kepek.Images.SetKeyName(3, "Nyul.png");
+            this.il_Kepek.Images.SetKeyName(4, "Roka.png");
             // 
             // Nbtn_test
             // 
@@ -152,7 +153,7 @@
         private System.Windows.Forms.Label lb_sorok;
         private System.Windows.Forms.Label lb_oszlopok;
         private System.Windows.Forms.Button btn_generate;
-        private System.Windows.Forms.ImageList Kepek;
+        private System.Windows.Forms.ImageList il_Kepek;
         private System.Windows.Forms.Button Nbtn_test;
         private System.Windows.Forms.Button start;
     }
