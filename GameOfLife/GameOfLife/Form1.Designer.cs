@@ -37,7 +37,6 @@
             this.lb_oszlopok = new System.Windows.Forms.Label();
             this.btn_generate = new System.Windows.Forms.Button();
             this.il_Kepek = new System.Windows.Forms.ImageList(this.components);
-            this.Nbtn_test = new System.Windows.Forms.Button();
             this.start = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -102,17 +101,6 @@
             this.il_Kepek.Images.SetKeyName(3, "Nyul.png");
             this.il_Kepek.Images.SetKeyName(4, "Roka.png");
             // 
-            // Nbtn_test
-            // 
-            this.Nbtn_test.Enabled = false;
-            this.Nbtn_test.Location = new System.Drawing.Point(638, 8);
-            this.Nbtn_test.Name = "Nbtn_test";
-            this.Nbtn_test.Size = new System.Drawing.Size(109, 23);
-            this.Nbtn_test.TabIndex = 5;
-            this.Nbtn_test.Text = "No more róka";
-            this.Nbtn_test.UseVisualStyleBackColor = true;
-            this.Nbtn_test.Click += new System.EventHandler(this.Nbtn_test_Click);
-            // 
             // start
             // 
             this.start.Location = new System.Drawing.Point(753, 8);
@@ -131,7 +119,6 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(910, 626);
             this.Controls.Add(this.start);
-            this.Controls.Add(this.Nbtn_test);
             this.Controls.Add(this.btn_generate);
             this.Controls.Add(this.lb_oszlopok);
             this.Controls.Add(this.lb_sorok);
@@ -154,7 +141,6 @@
         private System.Windows.Forms.Label lb_oszlopok;
         private System.Windows.Forms.Button btn_generate;
         private System.Windows.Forms.ImageList il_Kepek;
-        private System.Windows.Forms.Button Nbtn_test;
         private System.Windows.Forms.Button start;
     }
 }

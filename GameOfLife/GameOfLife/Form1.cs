@@ -15,6 +15,7 @@ namespace GameOfLife
     {
         Random rnd = new Random();
         List<KeretAdat[]> Keret;
+
         public Form1()
         {           
             InitializeComponent();
@@ -99,7 +100,6 @@ namespace GameOfLife
                 }
                 Keret.Add(oszlopKeret);
             }
-            Nbtn_test.Enabled = true;
             foreach (var item in Keret)
             {
                 foreach (var iitem in item)
@@ -108,18 +108,6 @@ namespace GameOfLife
                 }
             }
         }
-
-        private void Nbtn_test_Click(object sender, EventArgs e)
-        {
-            foreach (var item in Keret)
-            {
-                foreach(var iitem in item)
-                {
-                    iitem.NoRoka();
-                }
-            }
-        }
-
         private void start_Click(object sender, EventArgs e)
         {
             
