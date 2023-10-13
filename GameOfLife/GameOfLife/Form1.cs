@@ -122,7 +122,7 @@ namespace GameOfLife
 
         private void start_Click(object sender, EventArgs e)
         {
-
+            
         }
     }
 }
