@@ -14,23 +14,26 @@ namespace GameOfLife
         {
         }
 
-        public void NyulSzul(List<KeretAdat[]> Keret, int i, int j)
+        public void NyulSzul(List<KeretAdat[]> Keret, int i, int j, int k, int l)
         {
             Keret[i][j].Allat = "Nyul";
             Keret[i][j].Ehesseg = 5;
             Keret[i][j].Szult = true;
-            Keret[i][j].Mozgas = false;//teszt miatt atirtam
+            Keret[i][j].Mozgas = true;
             Keret[i][j].Frissites();
+            Keret[k][l].Mozgas = false;
+            Keret[k][l].Szult = true;
         }
         public void NyulMozgas(List<KeretAdat[]> Keret, int i, int j, int k, int l)
         {
+            
+            Keret[k][l].Allat = "Nyul";
+            Keret[k][l].Ehesseg = Keret[i][j].Ehesseg -1;
+            Keret[k][l].Mozgas = true;
+            Keret[k][l].Szult = false;
+            Keret[k][l].Frissites();
             Keret[i][j].Allat = null;
             Keret[i][j].Ehesseg = 0;
-            Keret[k][l].Allat = "Nyul";
-            Keret[k][l].Ehesseg = 5;
-            Keret[k][l].Mozgas = true;
-            Keret[k][l].Szult = false;//teszt miatt atirtam
-            Keret[k][l].Frissites();
             Frissites();
         }
         public void Meghal(List<KeretAdat[]> Keret, int i, int j)
@@ -38,7 +41,7 @@ namespace GameOfLife
             Keret[i][j].Allat = null;
             Keret[i][j].Ehesseg = 0;
         }
-        public bool NemSzultEsVanNyul(KeretAdat[] seged)
+        public bool NemSzultEsVanMelletteNyul(KeretAdat[] seged)
         {
             if (Szult == false && Array.Exists(seged, x => x.Allat == "Nyul"))
             {
@@ -48,7 +51,7 @@ namespace GameOfLife
         }
         public bool SzultNemMozgottEsVanHely(KeretAdat[] seged)
         {
-            if (Szult == true /* teszt miatt atirtam */ && Mozgas == false && Array.Exists(seged, x => x.Allat == null))
+            if (Szult == true && Mozgas == false && Array.Exists(seged, x => x.Allat == null))
             {
                 return true;
             }
@@ -62,25 +65,25 @@ namespace GameOfLife
             KeretAdat[] seged = { Keret[i + 1][j], Keret[i][j + 1], Keret[i - 1][j], Keret[i][j - 1] };
             if (Keret[i][j].Allat == "Nyul" && Keret[i][j].Ehesseg >= 1)
             {
-                if (NemSzultEsVanNyul(seged))
+                if (NemSzultEsVanMelletteNyul(seged))
                 {
                     switch (Array.IndexOf(seged, seged.Where(x=>x.Allat == null).First()))
                     {
                         case 0:
-                            NyulSzul(Keret, i + 1, j);
+                            NyulSzul(Keret, i + 1, j, i, j);
                             break;
                         case 1:
-                            NyulSzul(Keret, i, j + 1);
+                            NyulSzul(Keret, i, j + 1, i, j);
                             break;
                         case 2:
-                            NyulSzul(Keret, i - 1, j);
+                            NyulSzul(Keret, i - 1, j, i, j);
                             break;
                         case 3:
-                            NyulSzul(Keret, i, j - 1);
+                            NyulSzul(Keret, i, j - 1, i, j);
                             break;
                     }
                 }
-                if (SzultNemMozgottEsVanHely(seged))
+                else if (SzultNemMozgottEsVanHely(seged))
                 {
                     KeretAdat legnagyobb = seged.OrderBy(x => x.FuAllapot).Where(x => x.Allat == null).First();
                     switch (Array.IndexOf(seged, legnagyobb))
@@ -100,7 +103,7 @@ namespace GameOfLife
                     }
                 }
             }
-            else
+            else if (Keret[i][j].Allat == "Nyul" && Keret[i][j].Ehesseg <= 0)
             {
                 Meghal(Keret, i, j);
             }
