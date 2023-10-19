@@ -103,6 +103,7 @@
             // 
             // start
             // 
+            this.start.Enabled = false;
             this.start.Location = new System.Drawing.Point(753, 8);
             this.start.Name = "start";
             this.start.Size = new System.Drawing.Size(110, 23);

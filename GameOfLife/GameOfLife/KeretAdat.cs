@@ -8,9 +8,9 @@ using System.Windows.Forms;
 
 namespace GameOfLife
 {
-    internal class KeretAdat
+    public class KeretAdat
     {
-        //ez a class tárolja el, hogy a keretben hol mi van. Majd ide rakjatok function-öket
+        
 
         public ImageList kepLista { get; set; }
 
@@ -48,7 +48,5 @@ namespace GameOfLife
             }
             kep.BackgroundImage = kepLista.Images[FuAllapot];
         }
-
-
     }
 }

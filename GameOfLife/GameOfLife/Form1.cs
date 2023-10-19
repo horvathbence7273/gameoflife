@@ -15,17 +15,20 @@ namespace GameOfLife
     {
         Random rnd = new Random();
         List<KeretAdat[]> Keret;
-
+        Nyul nyul = new Nyul();
+        int oszlop = 0;
+        int sorok = 0;
+        
         public Form1()
         {           
             InitializeComponent();
+            
         }
 
         private void btn_generate_Click(object sender, EventArgs e)
         {
             pan_keret.Controls.Clear();
-            int oszlop;
-            int sorok;
+
             try
             {
                 oszlop = int.Parse(tb_oszlopok.Text);
@@ -35,14 +38,15 @@ namespace GameOfLife
                     MessageBox.Show("Az értékek legalább legyenek 1-ek");
                     return;
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("nem megfelelő bemeneti érték");
                 return;
             }
 
-            if(oszlop >= 25 || sorok >= 25)
-            {               
+            if (oszlop >= 25 || sorok >= 25)
+            {
                 if (MessageBox.Show("Eléggé nagy számokat írtál be.\nEgy ideig eltarthat a legenerálás. Biztos vagy benne?", "Igen?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
                     return;
@@ -56,7 +60,7 @@ namespace GameOfLife
             {
                 KeretAdat[] oszlopKeret = new KeretAdat[sorok];
 
-                for (int j = 0; j < sorok; j++) 
+                for (int j = 0; j < sorok; j++)
                 {
                     PictureBox kep = new PictureBox();
                     pan_keret.Controls.Add(kep);
@@ -107,10 +111,19 @@ namespace GameOfLife
                     iitem.Frissites();
                 }
             }
+            start.Enabled = true;
         }
+            
         private void start_Click(object sender, EventArgs e)
         {
-            
+            nyul.NyulAction(oszlop, sorok, Keret);
+            foreach (var item in Keret)
+            {
+                foreach (var iitem in item)
+                {
+                    iitem.Frissites();
+                }
+            }
         }
     }
 }
