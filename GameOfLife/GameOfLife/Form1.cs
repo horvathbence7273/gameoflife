@@ -16,13 +16,14 @@ namespace GameOfLife
         Random rnd = new Random();
         List<KeretAdat[]> Keret;
         Nyul nyul = new Nyul();
+        Roka roka = new Roka();
         int oszlop = 0;
         int sorok = 0;
-        
+
         public Form1()
-        {           
+        {
             InitializeComponent();
-            
+
         }
 
         private void btn_generate_Click(object sender, EventArgs e)
@@ -113,15 +114,17 @@ namespace GameOfLife
             }
             start.Enabled = true;
         }
-            
+
         private void start_Click(object sender, EventArgs e)
         {
             nyul.NyulAction(oszlop, sorok, Keret);
+            roka.RokaAction(oszlop, sorok, Keret);
             foreach (var item in Keret)
             {
                 foreach (var iitem in item)
                 {
-                    iitem.Frissites();
+                    iitem.KorVege();
+                    iitem.FuNo();
                 }
             }
         }

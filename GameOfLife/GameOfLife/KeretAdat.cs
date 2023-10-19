@@ -48,5 +48,23 @@ namespace GameOfLife
             }
             kep.BackgroundImage = kepLista.Images[FuAllapot];
         }
+
+        public void KorVege()
+        {
+            Szult = false;
+            Mozgas = false;
+        }
+
+        public void FuNo()
+        {
+            if (Allat != "Nyul")
+            {
+                if (FuAllapot < 2)
+                {
+                    FuAllapot++;
+                }
+                Frissites();
+            }
+        }
     }
 }

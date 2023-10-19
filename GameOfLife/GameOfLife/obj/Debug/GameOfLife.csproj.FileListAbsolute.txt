@@ -58,3 +58,13 @@ C:\Users\Bence\Desktop\gameoflife\gameoflife\GameOfLife\GameOfLife\obj\Debug\Gam
 C:\Users\Bence\Desktop\gameoflife\gameoflife\GameOfLife\GameOfLife\obj\Debug\GameOfLife.csproj.CoreCompileInputs.cache
 C:\Users\Bence\Desktop\gameoflife\gameoflife\GameOfLife\GameOfLife\obj\Debug\GameOfLife.exe
 C:\Users\Bence\Desktop\gameoflife\gameoflife\GameOfLife\GameOfLife\obj\Debug\GameOfLife.pdb
+C:\Users\Roland\Desktop\gameoflife project\gameoflife\GameOfLife\GameOfLife\obj\Debug\GameOfLife.csproj.AssemblyReference.cache
+C:\Users\Roland\Desktop\gameoflife project\gameoflife\GameOfLife\GameOfLife\obj\Debug\GameOfLife.Form1.resources
+C:\Users\Roland\Desktop\gameoflife project\gameoflife\GameOfLife\GameOfLife\obj\Debug\GameOfLife.Properties.Resources.resources
+C:\Users\Roland\Desktop\gameoflife project\gameoflife\GameOfLife\GameOfLife\obj\Debug\GameOfLife.csproj.GenerateResource.cache
+C:\Users\Roland\Desktop\gameoflife project\gameoflife\GameOfLife\GameOfLife\obj\Debug\GameOfLife.csproj.CoreCompileInputs.cache
+C:\Users\Roland\Desktop\gameoflife project\gameoflife\GameOfLife\GameOfLife\obj\Debug\GameOfLife.exe
+C:\Users\Roland\Desktop\gameoflife project\gameoflife\GameOfLife\GameOfLife\obj\Debug\GameOfLife.pdb
+C:\Users\Roland\Desktop\gameoflife project\gameoflife\GameOfLife\GameOfLife\bin\Debug\GameOfLife.exe.config
+C:\Users\Roland\Desktop\gameoflife project\gameoflife\GameOfLife\GameOfLife\bin\Debug\GameOfLife.exe
+C:\Users\Roland\Desktop\gameoflife project\gameoflife\GameOfLife\GameOfLife\bin\Debug\GameOfLife.pdb

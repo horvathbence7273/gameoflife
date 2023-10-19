@@ -96,8 +96,8 @@
             this.il_Kepek.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("il_Kepek.ImageStream")));
             this.il_Kepek.TransparentColor = System.Drawing.Color.Transparent;
             this.il_Kepek.Images.SetKeyName(0, "Fu_kezdemeny.png");
-            this.il_Kepek.Images.SetKeyName(1, "Fu_kifejlett.png");
-            this.il_Kepek.Images.SetKeyName(2, "Fu_zsenge.png");
+            this.il_Kepek.Images.SetKeyName(1, "Fu_zsenge.png");
+            this.il_Kepek.Images.SetKeyName(2, "Fu_kifejlett.png");
             this.il_Kepek.Images.SetKeyName(3, "Nyul.png");
             this.il_Kepek.Images.SetKeyName(4, "Roka.png");
             // 
