@@ -38,35 +38,43 @@
             this.btn_generate = new System.Windows.Forms.Button();
             this.il_Kepek = new System.Windows.Forms.ImageList(this.components);
             this.start = new System.Windows.Forms.Button();
+            this.lb_roka = new System.Windows.Forms.Label();
+            this.lb_nyulak = new System.Windows.Forms.Label();
+            this.tb_rokak = new System.Windows.Forms.TextBox();
+            this.tb_nyulak = new System.Windows.Forms.TextBox();
+            this.btn_end = new System.Windows.Forms.Button();
+            this.t_timer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // pan_keret
             // 
             this.pan_keret.AutoSize = true;
             this.pan_keret.BackColor = System.Drawing.Color.Transparent;
-            this.pan_keret.Location = new System.Drawing.Point(3, 37);
+            this.pan_keret.Location = new System.Drawing.Point(6, 61);
             this.pan_keret.Name = "pan_keret";
-            this.pan_keret.Size = new System.Drawing.Size(631, 315);
+            this.pan_keret.Size = new System.Drawing.Size(494, 55);
             this.pan_keret.TabIndex = 0;
             // 
             // tb_sorok
             // 
-            this.tb_sorok.Location = new System.Drawing.Point(66, 11);
+            this.tb_sorok.Location = new System.Drawing.Point(63, 6);
             this.tb_sorok.Name = "tb_sorok";
             this.tb_sorok.Size = new System.Drawing.Size(100, 20);
             this.tb_sorok.TabIndex = 0;
+            this.tb_sorok.Text = "3";
             // 
             // tb_oszlopok
             // 
-            this.tb_oszlopok.Location = new System.Drawing.Point(328, 11);
+            this.tb_oszlopok.Location = new System.Drawing.Point(63, 35);
             this.tb_oszlopok.Name = "tb_oszlopok";
             this.tb_oszlopok.Size = new System.Drawing.Size(100, 20);
             this.tb_oszlopok.TabIndex = 1;
+            this.tb_oszlopok.Text = "3";
             // 
             // lb_sorok
             // 
             this.lb_sorok.AutoSize = true;
-            this.lb_sorok.Location = new System.Drawing.Point(22, 15);
+            this.lb_sorok.Location = new System.Drawing.Point(3, 9);
             this.lb_sorok.Name = "lb_sorok";
             this.lb_sorok.Size = new System.Drawing.Size(38, 13);
             this.lb_sorok.TabIndex = 2;
@@ -75,7 +83,7 @@
             // lb_oszlopok
             // 
             this.lb_oszlopok.AutoSize = true;
-            this.lb_oszlopok.Location = new System.Drawing.Point(268, 14);
+            this.lb_oszlopok.Location = new System.Drawing.Point(3, 38);
             this.lb_oszlopok.Name = "lb_oszlopok";
             this.lb_oszlopok.Size = new System.Drawing.Size(54, 13);
             this.lb_oszlopok.TabIndex = 3;
@@ -83,7 +91,7 @@
             // 
             // btn_generate
             // 
-            this.btn_generate.Location = new System.Drawing.Point(467, 9);
+            this.btn_generate.Location = new System.Drawing.Point(335, 4);
             this.btn_generate.Name = "btn_generate";
             this.btn_generate.Size = new System.Drawing.Size(165, 22);
             this.btn_generate.TabIndex = 4;
@@ -104,13 +112,63 @@
             // start
             // 
             this.start.Enabled = false;
-            this.start.Location = new System.Drawing.Point(753, 8);
+            this.start.Location = new System.Drawing.Point(335, 33);
             this.start.Name = "start";
-            this.start.Size = new System.Drawing.Size(110, 23);
+            this.start.Size = new System.Drawing.Size(82, 23);
             this.start.TabIndex = 6;
             this.start.Text = "Indítás";
             this.start.UseVisualStyleBackColor = true;
             this.start.Click += new System.EventHandler(this.start_Click);
+            // 
+            // lb_roka
+            // 
+            this.lb_roka.AutoSize = true;
+            this.lb_roka.Location = new System.Drawing.Point(169, 38);
+            this.lb_roka.Name = "lb_roka";
+            this.lb_roka.Size = new System.Drawing.Size(42, 13);
+            this.lb_roka.TabIndex = 10;
+            this.lb_roka.Text = "Rókák:";
+            // 
+            // lb_nyulak
+            // 
+            this.lb_nyulak.AutoSize = true;
+            this.lb_nyulak.Location = new System.Drawing.Point(169, 9);
+            this.lb_nyulak.Name = "lb_nyulak";
+            this.lb_nyulak.Size = new System.Drawing.Size(43, 13);
+            this.lb_nyulak.TabIndex = 9;
+            this.lb_nyulak.Text = "Nyulak:";
+            // 
+            // tb_rokak
+            // 
+            this.tb_rokak.Location = new System.Drawing.Point(229, 35);
+            this.tb_rokak.Name = "tb_rokak";
+            this.tb_rokak.Size = new System.Drawing.Size(100, 20);
+            this.tb_rokak.TabIndex = 8;
+            this.tb_rokak.Text = "1";
+            // 
+            // tb_nyulak
+            // 
+            this.tb_nyulak.Location = new System.Drawing.Point(229, 6);
+            this.tb_nyulak.Name = "tb_nyulak";
+            this.tb_nyulak.Size = new System.Drawing.Size(100, 20);
+            this.tb_nyulak.TabIndex = 7;
+            this.tb_nyulak.Text = "1";
+            // 
+            // btn_end
+            // 
+            this.btn_end.Enabled = false;
+            this.btn_end.Location = new System.Drawing.Point(418, 33);
+            this.btn_end.Name = "btn_end";
+            this.btn_end.Size = new System.Drawing.Size(82, 23);
+            this.btn_end.TabIndex = 11;
+            this.btn_end.Text = "Befejezés";
+            this.btn_end.UseVisualStyleBackColor = true;
+            this.btn_end.Click += new System.EventHandler(this.btn_end_Click);
+            // 
+            // t_timer
+            // 
+            this.t_timer.Interval = 200;
+            this.t_timer.Tick += new System.EventHandler(this.t_timer_Tick);
             // 
             // Form1
             // 
@@ -119,6 +177,11 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(910, 626);
+            this.Controls.Add(this.btn_end);
+            this.Controls.Add(this.lb_roka);
+            this.Controls.Add(this.lb_nyulak);
+            this.Controls.Add(this.tb_rokak);
+            this.Controls.Add(this.tb_nyulak);
             this.Controls.Add(this.start);
             this.Controls.Add(this.btn_generate);
             this.Controls.Add(this.lb_oszlopok);
@@ -143,6 +206,12 @@
         private System.Windows.Forms.Button btn_generate;
         private System.Windows.Forms.ImageList il_Kepek;
         private System.Windows.Forms.Button start;
+        private System.Windows.Forms.Label lb_roka;
+        private System.Windows.Forms.Label lb_nyulak;
+        private System.Windows.Forms.TextBox tb_rokak;
+        private System.Windows.Forms.TextBox tb_nyulak;
+        private System.Windows.Forms.Button btn_end;
+        private System.Windows.Forms.Timer t_timer;
     }
 }
 

@@ -17,7 +17,7 @@ namespace GameOfLife
         List<KeretAdat[]> Keret;
         Nyul nyul = new Nyul();
         Roka roka = new Roka();
-        int oszlop = 0;
+        int oszlopok = 0;
         int sorok = 0;
 
         public Form1()
@@ -30,11 +30,16 @@ namespace GameOfLife
         {
             pan_keret.Controls.Clear();
 
+            int rokak = 0;
+            int nyulak = 0;
+
             try
             {
-                oszlop = int.Parse(tb_oszlopok.Text);
+                oszlopok = int.Parse(tb_oszlopok.Text);
                 sorok = int.Parse(tb_sorok.Text);
-                if (oszlop <= 0 || sorok <= 0)
+                rokak = int.Parse(tb_rokak.Text);
+                nyulak = int.Parse(tb_nyulak.Text);
+                if (oszlopok <= 0 || sorok <= 0 || rokak <= 0 || nyulak <= 0)
                 {
                     MessageBox.Show("Az értékek legalább legyenek 1-ek");
                     return;
@@ -46,18 +51,31 @@ namespace GameOfLife
                 return;
             }
 
-            if (oszlop >= 25 || sorok >= 25)
+            if (rokak + nyulak >= oszlopok * sorok)
+            {
+                MessageBox.Show("Túl sok állatot adtál meg");
+                return;
+            }
+            if (oszlopok >= 25 || sorok >= 25)
             {
                 if (MessageBox.Show("Eléggé nagy számokat írtál be.\nEgy ideig eltarthat a legenerálás. Biztos vagy benne?", "Igen?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
                 {
                     return;
                 }
             }
+            if (rokak + nyulak >= oszlopok * sorok / 2)
+            {
+                if (MessageBox.Show("Eléggé sok állatot szeretnél legenerálni.\nBiztos vagy benne?", "Igen?", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.No)
+                {
+                    return;
+                }
+            }
+            
 
             Keret = new List<KeretAdat[]>();
 
 
-            for (int i = 0; i < oszlop; i++)
+            for (int i = 0; i < oszlopok; i++)
             {
                 KeretAdat[] oszlopKeret = new KeretAdat[sorok];
 
@@ -70,25 +88,10 @@ namespace GameOfLife
                     kep.Location = new Point(i * 50, j * 50);
                     kep.Visible = true;
 
-                    string allat;
-                    int ehesseg;
-                    int fuAllapot;
+                    string allat = null;
+                    int ehesseg = 0;
+                    int fuAllapot = 0;
 
-                    switch (rnd.Next(1, 11))
-                    {
-                        case 3:
-                            allat = "Nyul";
-                            ehesseg = 5;
-                            break;
-                        case 4:
-                            allat = "Roka";
-                            ehesseg = 10;
-                            break;
-                        default:
-                            allat = null;
-                            ehesseg = 0;
-                            break;
-                    }
                     switch (rnd.Next(0, 3))
                     {
                         case 0:
@@ -105,6 +108,33 @@ namespace GameOfLife
                 }
                 Keret.Add(oszlopKeret);
             }
+
+            while (nyulak > 0)
+            {
+                int x = rnd.Next(0, oszlopok);
+                int y = rnd.Next(0, sorok);
+
+                if (Keret[x][y].Allat == null)
+                {
+                    Keret[x][y].Allat = "Nyul";
+                    Keret[x][y].Ehesseg = 5;
+                    nyulak--;
+                }
+            }
+
+            while (rokak > 0)
+            {
+                int x = rnd.Next(0, oszlopok);
+                int y = rnd.Next(0, sorok);
+
+                if (Keret[x][y].Allat == null)
+                {
+                    Keret[x][y].Allat = "Roka";
+                    Keret[x][y].Ehesseg = 10;
+                    rokak--;
+                }
+            }
+
             foreach (var item in Keret)
             {
                 foreach (var iitem in item)
@@ -117,8 +147,25 @@ namespace GameOfLife
 
         private void start_Click(object sender, EventArgs e)
         {
-            nyul.NyulAction(oszlop, sorok, Keret);
-            roka.RokaAction(oszlop, sorok, Keret);
+            start.Enabled = false;
+            t_timer.Enabled = true;
+            btn_end.Enabled = true;
+            btn_generate.Enabled = false;
+
+        }
+
+        private void btn_end_Click(object sender, EventArgs e)
+        {
+            start.Enabled = true;
+            t_timer.Enabled = false;
+            btn_end.Enabled = false;
+            btn_generate.Enabled = true;
+        }
+
+        private void t_timer_Tick(object sender, EventArgs e)
+        {
+            nyul.NyulAction(oszlopok, sorok, Keret);
+            roka.RokaAction(oszlopok, sorok, Keret);
             foreach (var item in Keret)
             {
                 foreach (var iitem in item)

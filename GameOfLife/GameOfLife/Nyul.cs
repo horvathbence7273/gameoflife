@@ -11,7 +11,6 @@ namespace GameOfLife
     public class Nyul
     {
         Random rnd = new Random();
-        private List<KeretAdat> Keret { get; set; }
 
         public void NyulSzul(List<KeretAdat[]> Keret, int i, int j, int k, int l, KeretAdat[] seged)
         {
@@ -42,24 +41,6 @@ namespace GameOfLife
             Keret[i][j].Allat = null;
             Keret[i][j].Ehesseg = 0;
             Keret[i][j].Frissites();
-        }
-
-        public bool NemSzultEsVanMelletteNyul(List<KeretAdat[]> Keret, KeretAdat[] seged, int i , int j)
-        {
-            if (Keret[i][j].Mozgas == true && Keret[i][j].Szult == false && Array.Exists(seged, x => x.Allat == "Nyul")&& Array.Exists(seged, x => x.Allat == null))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public bool SzultNemMozgottEsVanHely(List<KeretAdat[]> Keret, KeretAdat[] seged, int i, int j)
-        {
-            if (Keret[i][j].Szult == true && Array.Exists(seged, x => x.Allat == null))
-            {
-                return true;
-            }
-            return false;
         }
 
         public bool SzulesFeltetelek(List<KeretAdat[]> Keret, KeretAdat[] seged, int i, int j)
