@@ -1,4 +1,2 @@
-# gameoflife
-test
-2/14A's game of life project.
-asd
+# Game Of Life
+Készítette: Andi Gergő, Právics Roland, Horváth Bence
