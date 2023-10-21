@@ -36,14 +36,16 @@
             this.lb_sorok = new System.Windows.Forms.Label();
             this.lb_oszlopok = new System.Windows.Forms.Label();
             this.btn_generate = new System.Windows.Forms.Button();
-            this.il_Kepek = new System.Windows.Forms.ImageList(this.components);
-            this.start = new System.Windows.Forms.Button();
+            this.btn_start = new System.Windows.Forms.Button();
             this.lb_roka = new System.Windows.Forms.Label();
             this.lb_nyulak = new System.Windows.Forms.Label();
             this.tb_rokak = new System.Windows.Forms.TextBox();
             this.tb_nyulak = new System.Windows.Forms.TextBox();
             this.btn_end = new System.Windows.Forms.Button();
             this.t_timer = new System.Windows.Forms.Timer(this.components);
+            this.il_fuvek = new System.Windows.Forms.ImageList(this.components);
+            this.il_allatok = new System.Windows.Forms.ImageList(this.components);
+            this.teszt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pan_keret
@@ -99,26 +101,16 @@
             this.btn_generate.UseVisualStyleBackColor = true;
             this.btn_generate.Click += new System.EventHandler(this.btn_generate_Click);
             // 
-            // il_Kepek
+            // btn_start
             // 
-            this.il_Kepek.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("il_Kepek.ImageStream")));
-            this.il_Kepek.TransparentColor = System.Drawing.Color.Transparent;
-            this.il_Kepek.Images.SetKeyName(0, "Fu_kezdemeny.png");
-            this.il_Kepek.Images.SetKeyName(1, "Fu_zsenge.png");
-            this.il_Kepek.Images.SetKeyName(2, "Fu_kifejlett.png");
-            this.il_Kepek.Images.SetKeyName(3, "Nyul.png");
-            this.il_Kepek.Images.SetKeyName(4, "Roka.png");
-            // 
-            // start
-            // 
-            this.start.Enabled = false;
-            this.start.Location = new System.Drawing.Point(335, 33);
-            this.start.Name = "start";
-            this.start.Size = new System.Drawing.Size(82, 23);
-            this.start.TabIndex = 6;
-            this.start.Text = "Indítás";
-            this.start.UseVisualStyleBackColor = true;
-            this.start.Click += new System.EventHandler(this.start_Click);
+            this.btn_start.Enabled = false;
+            this.btn_start.Location = new System.Drawing.Point(335, 33);
+            this.btn_start.Name = "btn_start";
+            this.btn_start.Size = new System.Drawing.Size(82, 23);
+            this.btn_start.TabIndex = 6;
+            this.btn_start.Text = "Indítás";
+            this.btn_start.UseVisualStyleBackColor = true;
+            this.btn_start.Click += new System.EventHandler(this.btn_start_Click);
             // 
             // lb_roka
             // 
@@ -170,6 +162,31 @@
             this.t_timer.Interval = 200;
             this.t_timer.Tick += new System.EventHandler(this.t_timer_Tick);
             // 
+            // il_fuvek
+            // 
+            this.il_fuvek.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("il_fuvek.ImageStream")));
+            this.il_fuvek.TransparentColor = System.Drawing.Color.Transparent;
+            this.il_fuvek.Images.SetKeyName(0, "Fu_kezdemeny.png");
+            this.il_fuvek.Images.SetKeyName(1, "Fu_zsenge.png");
+            this.il_fuvek.Images.SetKeyName(2, "Fu_kifejlett.png");
+            // 
+            // il_allatok
+            // 
+            this.il_allatok.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("il_allatok.ImageStream")));
+            this.il_allatok.TransparentColor = System.Drawing.Color.Transparent;
+            this.il_allatok.Images.SetKeyName(0, "Nyul.png");
+            this.il_allatok.Images.SetKeyName(1, "Roka.png");
+            // 
+            // teszt
+            // 
+            this.teszt.Location = new System.Drawing.Point(525, 4);
+            this.teszt.Name = "teszt";
+            this.teszt.Size = new System.Drawing.Size(102, 52);
+            this.teszt.TabIndex = 12;
+            this.teszt.Text = "Teszt";
+            this.teszt.UseVisualStyleBackColor = true;
+            this.teszt.Click += new System.EventHandler(this.teszt_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -177,12 +194,13 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(910, 626);
+            this.Controls.Add(this.teszt);
             this.Controls.Add(this.btn_end);
             this.Controls.Add(this.lb_roka);
             this.Controls.Add(this.lb_nyulak);
             this.Controls.Add(this.tb_rokak);
             this.Controls.Add(this.tb_nyulak);
-            this.Controls.Add(this.start);
+            this.Controls.Add(this.btn_start);
             this.Controls.Add(this.btn_generate);
             this.Controls.Add(this.lb_oszlopok);
             this.Controls.Add(this.lb_sorok);
@@ -204,14 +222,16 @@
         private System.Windows.Forms.Label lb_sorok;
         private System.Windows.Forms.Label lb_oszlopok;
         private System.Windows.Forms.Button btn_generate;
-        private System.Windows.Forms.ImageList il_Kepek;
-        private System.Windows.Forms.Button start;
+        private System.Windows.Forms.Button btn_start;
         private System.Windows.Forms.Label lb_roka;
         private System.Windows.Forms.Label lb_nyulak;
         private System.Windows.Forms.TextBox tb_rokak;
         private System.Windows.Forms.TextBox tb_nyulak;
         private System.Windows.Forms.Button btn_end;
         private System.Windows.Forms.Timer t_timer;
+        private System.Windows.Forms.ImageList il_fuvek;
+        private System.Windows.Forms.ImageList il_allatok;
+        private System.Windows.Forms.Button teszt;
     }
 }
 

@@ -8,236 +8,297 @@ using System.Windows.Forms;
 
 namespace GameOfLife
 {
-    public class Roka 
+    internal sealed class Roka : MezoAdat
     {
-        Random rnd = new Random();
-
-        public void RokaSzul(List<KeretAdat[]> Keret, int i, int j, int k, int l, KeretAdat[] seged)
+        public Roka(int Ehesseg, int FuAllapot, PictureBox KepDoboz) : base(Ehesseg, FuAllapot, KepDoboz)
         {
-            Keret[i][j].Allat = "Roka";
-            Keret[i][j].Ehesseg = 10;
-            Keret[i][j].Szult = true;
-            Keret[i][j].Mozgas = true;
-            Keret[i][j].Frissites();
-            Keret[k][l].Mozgas = false;
-            Keret[k][l].Szult = true;
-            seged.Where(x => x.Allat == "Roka").First().Szult = true;
         }
 
-        public void RokaMozgas(List<KeretAdat[]> Keret, int i, int j, int k, int l)
+        public override void Frissites()
         {
-            Keret[k][l].Ehesseg = Keret[i][j].Ehesseg - 1;
-            if (Keret[k][l].Allat == "Nyul")
+            KepDoboz.Image = Kepek.Allatok.Images[1];
+            KepDoboz.BackgroundImage = Kepek.Fuvek.Images[FuAllapot];
+
+        }
+        public override void Mozog(int oszlop, int sor)
+        {
+            MezoAdat[] korulotte = Korulotte.Egyel(oszlop, sor);
+            int random;
+            int hovaFu;
+            if (korulotte.Any(x => x is MezoAdat && x.FuAllapot != -1))
             {
-                if (Keret[k][l].Ehesseg <= 7)
+                do
                 {
-                    Keret[k][l].Ehesseg += 3;
+                    random = rnd.rand.Next(0, 4);
                 }
-                else
+                while (korulotte[random].FuAllapot != -1);
+
+                switch (random)
                 {
-                    Keret[k][l].Ehesseg = 10;
-                }
-            }
-            Keret[k][l].Allat = "Roka";
-            Keret[k][l].Mozgas = true;
-            Keret[k][l].Szult = true;
-            Keret[k][l].Frissites();
-            Keret[i][j].Allat = null;
-            Keret[i][j].Ehesseg = 0;
-            Keret[i][j].Frissites();
-        }
-
-        public void Meghal(List<KeretAdat[]> Keret, int i, int j)
-        {
-            Keret[i][j].Allat = null;
-            Keret[i][j].Ehesseg = 0;
-            Keret[i][j].Frissites();
-        }
-
-        public bool SzulesFeltetelek(List<KeretAdat[]> Keret, KeretAdat[] seged, int i, int j)
-        {
-            if (Keret[i][j].Szult == false && Keret[i][j].Allat == "Roka" && Keret[i][j].Mozgas == false && Array.Exists(seged, x => x.Allat == "Roka") && seged.Where(x => x.Allat == "Roka").First().Szult == false && Array.Exists(seged, x => x.Allat == null))
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public void RokaAction(int oszlop, int sorok, List<KeretAdat[]> Keret)
-        {
-            for (int i = 0; i < oszlop; i++)
-            {
-                for (int j = 0; j < sorok; j++)
-                {
-                    KeretAdat[] seged = new KeretAdat[4];
-                    KeretAdat[] seged2 = new KeretAdat[4];
-
-
-                    try
-                    {
-                        seged[0] = Keret[i + 1][j];
-                    }
-                    catch
-                    {
-                        seged[0] = new KeretAdat("void", -1, -1, null, null);
-                    }
-                    try
-                    {
-                        seged[1] = Keret[i][j + 1];
-                    }
-                    catch
-                    {
-                        seged[1] = new KeretAdat("void", -1, -1, null, null);
-                    }
-                    try
-                    {
-                        seged[2] = Keret[i - 1][j];
-                    }
-                    catch
-                    {
-                        seged[2] = new KeretAdat("void", -1, -1, null, null);
-                    }
-                    try
-                    {
-                        seged[3] = Keret[i][j - 1];
-                    }
-                    catch
-                    {
-                        seged[3] = new KeretAdat("void", -1, -1, null, null);
-                    }
-
-                    try
-                    {
-                        seged2[0] = Keret[i + 2][j];
-                    }
-                    catch
-                    {
-                        seged2[0] = new KeretAdat("void", -1, -1, null, null);
-                    }
-                    try
-                    {
-                        seged2[1] = Keret[i][j + 2];
-                    }
-                    catch
-                    {
-                        seged2[1] = new KeretAdat("void", -1, -1, null, null);
-                    }
-                    try
-                    {
-                        seged2[2] = Keret[i - 2][j];
-                    }
-                    catch
-                    {
-                        seged2[2] = new KeretAdat("void", -1, -1, null, null);
-                    }
-                    try
-                    {
-                        seged2[3] = Keret[i][j - 2];
-                    }
-                    catch
-                    {
-                        seged2[3] = new KeretAdat("void", -1, -1, null, null);
-                    }
-
-                    if (Keret[i][j].Allat == "Roka" && Keret[i][j].Ehesseg <= 0)
-                    {
-                        Meghal(Keret, i, j);
-                    }
-
-                    if (Keret[i][j].Allat == "Roka")
-                    {
-                        if (Keret[i][j].Mozgas == false && Array.Exists(seged, x => x.Allat == "Nyul"))
-                        {
-                            KeretAdat legkozelebbi = seged.Where(x => x.Allat == "Nyul").First();
-                            switch (Array.IndexOf(seged, legkozelebbi))
-                            {
-                                case 0:
-                                    RokaMozgas(Keret, i, j, i + 1, j);
-                                    break;
-                                case 1:
-                                    RokaMozgas(Keret, i, j, i, j + 1);
-                                    break;
-                                case 2:
-                                    RokaMozgas(Keret, i, j, i - 1, j);
-                                    break;
-                                case 3:
-                                    RokaMozgas(Keret, i, j, i, j - 1);
-                                    break;
-                            }
-                        }
-                        else if (Keret[i][j].Mozgas == false && Array.Exists(seged2, x => x.Allat == "Nyul"))
-                        {
-                            KeretAdat legkozelebbi = seged2.Where(x => x.Allat == "Nyul").First();
-                            switch (Array.IndexOf(seged2, legkozelebbi))
-                            {
-                                case 0:
-                                    RokaMozgas(Keret, i, j, i + 2, j);
-                                    break;
-                                case 1:
-                                    RokaMozgas(Keret, i, j, i, j + 2);
-                                    break;
-                                case 2:
-                                    RokaMozgas(Keret, i, j, i - 2, j);
-                                    break;
-                                default:
-                                    RokaMozgas(Keret, i, j, i, j - 2);
-                                    break;
-                            }
-                        }
-                    }
-                    if (SzulesFeltetelek(Keret, seged, i , j))
-                    {
-                        switch (Array.IndexOf(seged, seged.Where(x => x.Allat == null && x.Allat != "void").First()))
-                        {
-                            case 0:
-
-                                RokaSzul(Keret, i + 1, j, i, j, seged);
-                                seged[0] = Keret[i + 1][j];
-                                break;
-                            case 1:
-                                RokaSzul(Keret, i, j + 1, i, j, seged);
-                                seged[1] = Keret[i][j + 1];
-                                break;
-                            case 2:
-                                RokaSzul(Keret, i - 1, j, i, j, seged);
-                                seged[2] = Keret[i - 1][j];
-                                break;
-                            case 3:
-                                RokaSzul(Keret, i, j - 1, i, j, seged);
-                                seged[3] = Keret[i][j - 1];
-                                break;
-                        }
-                    }
-                    else if (Keret[i][j].Allat == "Roka" && Keret[i][j].Mozgas == false && Array.Exists(seged, x => x.Allat == null))
-                    {
-                        int szam = 0;
-                        do
-                        {
-                            szam = rnd.Next(0, 4);
-                        }
-                        while (seged[szam].Allat != null);
-                        switch (szam)
-                        {
-                            case 0:
-                                RokaMozgas(Keret, i, j, i + 1, j);
-                                break;
-                            case 1:
-                                RokaMozgas(Keret, i, j, i, j + 1);
-                                break;
-                            case 2:
-                                RokaMozgas(Keret, i, j, i - 1, j);
-                                break;
-                            case 3:
-                                RokaMozgas(Keret, i, j, i, j - 1);
-                                break;
-                        }
-                    }
-                    if (Keret[i][j].Mozgas == false)
-                    {
-                        Keret[i][j].Ehesseg -= 1;
-                    }
+                    case 0:
+                        hovaFu = Adatok.Mezo[oszlop + 1, sor].FuAllapot;
+                        Adatok.Mezo[oszlop + 1, sor] = Adatok.Mezo[oszlop, sor];
+                        Adatok.Mezo[oszlop + 1, sor].Mozgott = true;
+                        Adatok.Mezo[oszlop + 1, sor].FuAllapot = hovaFu;
+                        Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop + 1, sor].KepDoboz);
+                        Frissites();
+                        break;
+                    case 1:
+                        hovaFu = Adatok.Mezo[oszlop, sor + 1].FuAllapot;
+                        Adatok.Mezo[oszlop, sor + 1] = Adatok.Mezo[oszlop, sor];
+                        Adatok.Mezo[oszlop, sor + 1].Mozgott = true;
+                        Adatok.Mezo[oszlop, sor + 1].FuAllapot = hovaFu;
+                        Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop, sor + 1].KepDoboz);
+                        Adatok.Mezo[oszlop, sor + 1].Frissites();
+                        break;
+                    case 2:
+                        hovaFu = Adatok.Mezo[oszlop - 1, sor].FuAllapot;
+                        Adatok.Mezo[oszlop - 1, sor] = Adatok.Mezo[oszlop, sor];
+                        Adatok.Mezo[oszlop - 1, sor].Mozgott = true;
+                        Adatok.Mezo[oszlop - 1, sor].FuAllapot = hovaFu;
+                        Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop - 1, sor].KepDoboz);
+                        Adatok.Mezo[oszlop - 1, sor].Frissites();
+                        break;
+                    case 3:
+                        hovaFu = Adatok.Mezo[oszlop, sor - 1].FuAllapot;
+                        Adatok.Mezo[oszlop, sor - 1] = Adatok.Mezo[oszlop, sor];
+                        Adatok.Mezo[oszlop, sor - 1].Mozgott = true;
+                        Adatok.Mezo[oszlop, sor - 1].FuAllapot = hovaFu;
+                        Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop, sor - 1].KepDoboz);
+                        Adatok.Mezo[oszlop, sor - 1].Frissites();
+                        break;
                 }
             }
+        }
+        public override bool Eszik(int oszlop, int sor)
+        {
+            MezoAdat[] korulotte1 = Korulotte.Egyel(oszlop, sor);
+            MezoAdat[] korulotte2 = Korulotte.Kettovel(oszlop, sor);
+            int random;
+            int hovaFu;
+            if (korulotte1.Any(x => x is Nyul && x.FuAllapot != -1))
+            {
+                do
+                {
+                    random = rnd.rand.Next(0, 4);
+                }
+                while (korulotte1[random] is Nyul == false);
+
+                switch (random)
+                {
+                    case 0:
+                        hovaFu = Adatok.Mezo[oszlop + 1, sor].FuAllapot;
+                        Adatok.Mezo[oszlop + 1, sor] = Adatok.Mezo[oszlop, sor];
+                        if (Adatok.Mezo[oszlop + 1, sor].Ehesseg + 3 > 10)
+                        {
+                            Adatok.Mezo[oszlop + 1, sor].Ehesseg = 10;
+                        }
+                        else
+                        {
+                            Adatok.Mezo[oszlop + 1, sor].Ehesseg += 3;
+                        }
+                        Adatok.Mezo[oszlop + 1, sor].Mozgott = true;
+                        Adatok.Mezo[oszlop + 1, sor].FuAllapot = hovaFu;
+                        Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop + 1, sor].KepDoboz);
+                        Adatok.Mezo[oszlop + 1, sor].Frissites();
+                        return true;
+                    case 1:
+                        hovaFu = Adatok.Mezo[oszlop, sor + 1].FuAllapot;
+                        Adatok.Mezo[oszlop, sor + 1] = Adatok.Mezo[oszlop, sor];
+                        if (Adatok.Mezo[oszlop, sor + 1].Ehesseg + 3 > 10)
+                        {
+                            Adatok.Mezo[oszlop, sor + 1].Ehesseg = 10;
+                        }
+                        else
+                        {
+                            Adatok.Mezo[oszlop, sor + 1].Ehesseg += 3;
+                        }
+                        Adatok.Mezo[oszlop, sor + 1].Mozgott = true;
+                        Adatok.Mezo[oszlop, sor + 1].FuAllapot = hovaFu;
+                        Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop, sor + 1].KepDoboz);
+                        Adatok.Mezo[oszlop, sor + 1].Frissites();
+                        return true;
+                    case 2:
+                        hovaFu = Adatok.Mezo[oszlop - 1, sor].FuAllapot;
+                        Adatok.Mezo[oszlop - 1, sor] = Adatok.Mezo[oszlop, sor];
+                        if (Adatok.Mezo[oszlop - 1, sor].Ehesseg + 3 > 10)
+                        {
+                            Adatok.Mezo[oszlop - 1, sor].Ehesseg = 10;
+                        }
+                        else
+                        {
+                            Adatok.Mezo[oszlop - 1, sor].Ehesseg += 3;
+                        }
+                        Adatok.Mezo[oszlop - 1, sor].Mozgott = true;
+                        Adatok.Mezo[oszlop - 1, sor].FuAllapot = hovaFu;
+                        Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop - 1, sor].KepDoboz);
+                        Adatok.Mezo[oszlop - 1, sor].Frissites();
+                        return true;
+                    case 3:
+                        hovaFu = Adatok.Mezo[oszlop, sor - 1].FuAllapot;
+                        Adatok.Mezo[oszlop, sor - 1] = Adatok.Mezo[oszlop, sor];
+                        if (Adatok.Mezo[oszlop, sor - 1].Ehesseg + 3 > 10)
+                        {
+                            Adatok.Mezo[oszlop, sor - 1].Ehesseg = 10;
+                        }
+                        else
+                        {
+                            Adatok.Mezo[oszlop, sor - 1].Ehesseg += 3;
+                        }
+                        Adatok.Mezo[oszlop, sor - 1].Mozgott = true;
+                        Adatok.Mezo[oszlop, sor - 1].FuAllapot = hovaFu;
+                        Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop, sor - 1].KepDoboz);
+                        Adatok.Mezo[oszlop, sor - 1].Frissites();
+                        return true;
+                    default:
+                        return false;
+
+                }
+            }
+            else if(korulotte2.Any(x => x is Nyul && x.FuAllapot != -1))
+            {
+                do
+                {
+                    random = rnd.rand.Next(0, 4);
+                }
+                while (korulotte2[random] is Nyul == false);
+
+                switch (random)
+                {
+                    case 0:
+                        hovaFu = Adatok.Mezo[oszlop + 2, sor].FuAllapot;
+                        Adatok.Mezo[oszlop + 2, sor] = Adatok.Mezo[oszlop, sor];
+                        if (Adatok.Mezo[oszlop + 2, sor].Ehesseg + 3 > 10)
+                        {
+                            Adatok.Mezo[oszlop + 2, sor].Ehesseg = 10;
+                        }
+                        else
+                        {
+                            Adatok.Mezo[oszlop + 2, sor].Ehesseg += 3;
+                        }
+                        Adatok.Mezo[oszlop + 2, sor].Mozgott = true;
+                        Adatok.Mezo[oszlop + 2, sor].FuAllapot = hovaFu;
+                        Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop + 2, sor].KepDoboz);
+                        Adatok.Mezo[oszlop + 2, sor].Frissites();
+                        return true;
+                    case 1:
+                        hovaFu = Adatok.Mezo[oszlop, sor + 2].FuAllapot;
+                        Adatok.Mezo[oszlop, sor + 2] = Adatok.Mezo[oszlop, sor];
+                        if (Adatok.Mezo[oszlop, sor + 2].Ehesseg + 3 > 10)
+                        {
+                            Adatok.Mezo[oszlop, sor + 2].Ehesseg = 10;
+                        }
+                        else
+                        {
+                            Adatok.Mezo[oszlop, sor + 2].Ehesseg += 3;
+                        }
+                        Adatok.Mezo[oszlop, sor + 2].Mozgott = true;
+                        Adatok.Mezo[oszlop, sor + 2].FuAllapot = hovaFu;
+                        Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop, sor + 2].KepDoboz);
+                        Adatok.Mezo[oszlop, sor + 2].Frissites();
+                        return true;
+                    case 2:
+                        hovaFu = Adatok.Mezo[oszlop - 2, sor].FuAllapot;
+                        Adatok.Mezo[oszlop - 2, sor] = Adatok.Mezo[oszlop, sor];
+                        if (Adatok.Mezo[oszlop - 2, sor].Ehesseg + 3 > 10)
+                        {
+                            Adatok.Mezo[oszlop - 2, sor].Ehesseg = 10;
+                        }
+                        else
+                        {
+                            Adatok.Mezo[oszlop - 2, sor].Ehesseg += 3;
+                        }
+                        Adatok.Mezo[oszlop - 2, sor].Mozgott = true;
+                        Adatok.Mezo[oszlop - 2, sor].FuAllapot = hovaFu;
+                        Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop - 2, sor].KepDoboz);
+                        Adatok.Mezo[oszlop - 2, sor].Frissites();
+                        return true;
+                    case 3:
+                        hovaFu = Adatok.Mezo[oszlop, sor - 2].FuAllapot;
+                        Adatok.Mezo[oszlop, sor - 2] = Adatok.Mezo[oszlop, sor];
+                        if (Adatok.Mezo[oszlop, sor - 2].Ehesseg + 3 > 10)
+                        {
+                            Adatok.Mezo[oszlop, sor - 2].Ehesseg = 10;
+                        }
+                        else
+                        {
+                            Adatok.Mezo[oszlop, sor - 2].Ehesseg += 3;
+                        }
+                        Adatok.Mezo[oszlop, sor - 2].Mozgott = true;
+                        Adatok.Mezo[oszlop, sor - 2].FuAllapot = hovaFu;
+                        Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop, sor - 2].KepDoboz);
+                        Adatok.Mezo[oszlop, sor - 2].Frissites();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public override void Szul(int oszlop, int sor)
+        {
+            MezoAdat[] korulotte = Korulotte.Egyel(oszlop, sor);
+            int random;
+            int hovaFu;
+            if (korulotte.Any(x => x is MezoAdat && x.FuAllapot != -1) && korulotte.Any(x => x is Roka))
+            {
+                do
+                {
+                    random = rnd.rand.Next(0, 4);
+                }
+                while (korulotte[random].FuAllapot != korulotte.Max(x => x.FuAllapot));
+
+                switch (random)
+                {
+                    case 0:
+                        hovaFu = Adatok.Mezo[oszlop + 1, sor].FuAllapot;
+                        Adatok.Mezo[oszlop + 1, sor] = new Roka(5, hovaFu, Adatok.Mezo[oszlop + 1, sor].KepDoboz);
+                        Adatok.Mezo[oszlop + 1, sor].Mozgott = true;
+                        Adatok.Mezo[oszlop + 1, sor].Szult = true;
+                        Adatok.Mezo[oszlop + 1, sor].Frissites();
+                        korulotte.First(x => x is Roka).Szult = true;
+                        Szult = true;
+                        break;
+                    case 1:
+                        hovaFu = Adatok.Mezo[oszlop, sor + 1].FuAllapot;
+                        Adatok.Mezo[oszlop, sor + 1] = new Roka(5, hovaFu, Adatok.Mezo[oszlop, sor + 1].KepDoboz);
+                        Adatok.Mezo[oszlop, sor + 1].Mozgott = true;
+                        Adatok.Mezo[oszlop, sor + 1].Szult = true;
+                        Adatok.Mezo[oszlop, sor + 1].Frissites();
+                        korulotte.First(x => x is Roka).Szult = true;
+                        Szult = true;
+                        break;
+                    case 2:
+                        hovaFu = Adatok.Mezo[oszlop - 1, sor].FuAllapot;
+                        Adatok.Mezo[oszlop - 1, sor] = new Roka(5, hovaFu, Adatok.Mezo[oszlop - 1, sor].KepDoboz);
+                        Adatok.Mezo[oszlop - 1, sor].Mozgott = true;
+                        Adatok.Mezo[oszlop - 1, sor].Szult = true;
+                        Adatok.Mezo[oszlop - 1, sor].Frissites();
+                        korulotte.First(x => x is Roka).Szult = true;
+                        Szult = true;
+                        break;
+                    case 3:
+                        hovaFu = Adatok.Mezo[oszlop, sor - 1].FuAllapot;
+                        Adatok.Mezo[oszlop, sor - 1] = new Roka(5, hovaFu, Adatok.Mezo[oszlop, sor - 1].KepDoboz);
+                        Adatok.Mezo[oszlop, sor - 1].Mozgott = true;
+                        Adatok.Mezo[oszlop, sor - 1].Szult = true;
+                        Adatok.Mezo[oszlop, sor - 1].Frissites();
+                        korulotte.First(x => x is Roka).Szult = true;
+                        Szult = true;
+                        break;
+                }
+            }
+        }
+        public override void Meghal(int oszlop, int sor)
+        {
+            if (Ehesseg <= 0)
+            {
+                Adatok.Mezo[oszlop, sor] = new MezoAdat(0, Adatok.Mezo[oszlop, sor].FuAllapot, Adatok.Mezo[oszlop, sor].KepDoboz);
+            }
+
         }
     }
 }

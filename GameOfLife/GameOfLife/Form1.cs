@@ -13,23 +13,18 @@ namespace GameOfLife
 {
     public partial class Form1 : Form
     {
-        Random rnd = new Random();
-        List<KeretAdat[]> Keret;
-        Nyul nyul = new Nyul();
-        Roka roka = new Roka();
         int oszlopok = 0;
         int sorok = 0;
 
         public Form1()
         {
             InitializeComponent();
-
+            Kepek.Fuvek = il_fuvek;
+            Kepek.Allatok = il_allatok;
         }
 
         private void btn_generate_Click(object sender, EventArgs e)
         {
-            pan_keret.Controls.Clear();
-
             int rokak = 0;
             int nyulak = 0;
 
@@ -70,29 +65,24 @@ namespace GameOfLife
                     return;
                 }
             }
-            
-
-            Keret = new List<KeretAdat[]>();
-
+            pan_keret.Controls.Clear();
+            Adatok.Mezo = new MezoAdat[oszlopok,sorok];
 
             for (int i = 0; i < oszlopok; i++)
             {
-                KeretAdat[] oszlopKeret = new KeretAdat[sorok];
-
                 for (int j = 0; j < sorok; j++)
                 {
-                    PictureBox kep = new PictureBox();
-                    pan_keret.Controls.Add(kep);
-                    kep.Size = new Size(50, 50);
-                    kep.BorderStyle = BorderStyle.FixedSingle;
-                    kep.Location = new Point(i * 50, j * 50);
-                    kep.Visible = true;
+                    PictureBox KepDoboz = new PictureBox();
+                    pan_keret.Controls.Add(KepDoboz);
+                    KepDoboz.Size = new Size(50, 50);
+                    KepDoboz.BorderStyle = BorderStyle.FixedSingle;
+                    KepDoboz.Location = new Point(i * 50, j * 50);
+                    KepDoboz.Visible = true;
 
-                    string allat = null;
                     int ehesseg = 0;
                     int fuAllapot = 0;
 
-                    switch (rnd.Next(0, 3))
+                    switch (rnd.rand.Next(0, 3))
                     {
                         case 0:
                             fuAllapot = 0;
@@ -104,59 +94,47 @@ namespace GameOfLife
                             fuAllapot = 2;
                             break;
                     }
-                    oszlopKeret[j] = new KeretAdat(allat, ehesseg, fuAllapot, kep, il_Kepek);
+                    Adatok.Mezo[i,j] = new MezoAdat(ehesseg, fuAllapot, KepDoboz);
                 }
-                Keret.Add(oszlopKeret);
             }
 
             while (nyulak > 0)
             {
-                int x = rnd.Next(0, oszlopok);
-                int y = rnd.Next(0, sorok);
+                int x = rnd.rand.Next(0, oszlopok);
+                int y = rnd.rand.Next(0, sorok);
 
-                if (Keret[x][y].Allat == null)
+                if (Adatok.Mezo[x, y] is MezoAdat)
                 {
-                    Keret[x][y].Allat = "Nyul";
-                    Keret[x][y].Ehesseg = 5;
+                    Adatok.Mezo[x, y] = new Nyul(5, Adatok.Mezo[x, y].FuAllapot, Adatok.Mezo[x, y].KepDoboz);
                     nyulak--;
                 }
             }
 
             while (rokak > 0)
             {
-                int x = rnd.Next(0, oszlopok);
-                int y = rnd.Next(0, sorok);
+                int x = rnd.rand.Next(0, oszlopok);
+                int y = rnd.rand.Next(0, sorok);
 
-                if (Keret[x][y].Allat == null)
+                if (Adatok.Mezo[x,y] is MezoAdat)
                 {
-                    Keret[x][y].Allat = "Roka";
-                    Keret[x][y].Ehesseg = 10;
+                    Adatok.Mezo[x, y] = new Roka(10, Adatok.Mezo[x, y].FuAllapot, Adatok.Mezo[x, y].KepDoboz);
                     rokak--;
                 }
             }
 
-            foreach (var item in Keret)
+            for (int i = 0; i < Adatok.Mezo.GetLength(0); i++)
             {
-                foreach (var iitem in item)
+                for (int j = 0; j < Adatok.Mezo.GetLength(1); j++)
                 {
-                    iitem.Frissites();
+                    Adatok.Mezo[i, j].Frissites();
                 }
             }
-            start.Enabled = true;
-        }
-
-        private void start_Click(object sender, EventArgs e)
-        {
-            start.Enabled = false;
-            t_timer.Enabled = true;
-            btn_end.Enabled = true;
-            btn_generate.Enabled = false;
-
+            btn_start.Enabled = true;
         }
 
         private void btn_end_Click(object sender, EventArgs e)
         {
-            start.Enabled = true;
+            btn_start.Enabled = true;
             t_timer.Enabled = false;
             btn_end.Enabled = false;
             btn_generate.Enabled = true;
@@ -164,14 +142,66 @@ namespace GameOfLife
 
         private void t_timer_Tick(object sender, EventArgs e)
         {
-            nyul.NyulAction(oszlopok, sorok, Keret);
-            roka.RokaAction(oszlopok, sorok, Keret);
-            foreach (var item in Keret)
+            for (int i = 0; i < Adatok.Mezo.GetLength(0); i++)
             {
-                foreach (var iitem in item)
+                for (int j = 0; j < Adatok.Mezo.GetLength(1); j++)
                 {
-                    iitem.KorVege();
-                    iitem.FuNo();
+                    Adatok.Mezo[i, j].Meghal(i,j);
+                    if (Adatok.Mezo[i, j].Eszik(i, j) == false)
+                    {
+                        if (Adatok.Mezo[i, j].Mozgott == false)
+                        {
+                            Adatok.Mezo[i, j].Mozog(i, j);   
+                        }
+                    }
+                    if (Adatok.Mezo[i, j].Szult == false)
+                    {
+                        Adatok.Mezo[i, j].Szul(i, j);
+                    }
+                }
+            }
+            for (int i = 0; i < Adatok.Mezo.GetLength(0); i++)
+            {
+                for (int j = 0; j < Adatok.Mezo.GetLength(1); j++)
+                {
+                    Adatok.Mezo[i, j].KorVege();
+                }
+            }
+        }
+
+        private void btn_start_Click(object sender, EventArgs e)
+        {
+            btn_start.Enabled = false;
+            t_timer.Enabled = true;
+            btn_end.Enabled = true;
+            btn_generate.Enabled = false;
+        }
+
+        private void teszt_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i < Adatok.Mezo.GetLength(0); i++)
+            {
+                for (int j = 0; j < Adatok.Mezo.GetLength(1); j++)
+                {
+                    Adatok.Mezo[i, j].Meghal(i, j);
+                    if (Adatok.Mezo[i, j].Eszik(i, j) == false)
+                    {
+                        if (Adatok.Mezo[i, j].Mozgott == false)
+                        {
+                            Adatok.Mezo[i, j].Mozog(i, j);
+                        }
+                    }
+                    if (Adatok.Mezo[i, j].Szult == false)
+                    {
+                        Adatok.Mezo[i, j].Szul(i, j);
+                    }
+                }
+            }
+            for (int i = 0; i < Adatok.Mezo.GetLength(0); i++)
+            {
+                for (int j = 0; j < Adatok.Mezo.GetLength(1); j++)
+                {
+                    Adatok.Mezo[i, j].KorVege();
                 }
             }
         }
