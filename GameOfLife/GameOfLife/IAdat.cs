@@ -9,10 +9,10 @@ namespace GameOfLife
 {
     internal interface IAdat
     {
-        void Mozog(int oszlopok, int sorok);
-        bool Eszik(int oszlopok, int sorok);
-        void Szul(int oszlopok, int sorok);
-        void Meghal(int oszlopok, int sorok);
-        void Frissites();
+        void Mozog(int oszlop, int sor);
+        bool Eszik(int oszlop, int sor);
+        void Szul(int oszlop, int sor);
+        void Meghal(int oszlop, int sor);
+        void Frissites(int oszlop, int sor);
     }
 }

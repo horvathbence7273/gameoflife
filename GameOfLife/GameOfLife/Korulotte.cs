@@ -12,24 +12,24 @@ namespace GameOfLife
         {
             MezoAdat[] korulotte = { null, null, null, null };
 
-            if (oszlop + 1 == Adatok.Mezo.GetLength(0))
+            if (oszlop + 1 >= Adatok.Mezo.GetLength(0))
             {
-                korulotte[0] = new MezoAdat(-1, -1, null);
+                korulotte[0] = new MezoAdat(-1, -1);
             }
             
-            if (sor + 1 == Adatok.Mezo.GetLength(1))
+            if (sor + 1 >= Adatok.Mezo.GetLength(1))
             {
-                korulotte[1] = new MezoAdat(-1, -1, null);
+                korulotte[1] = new MezoAdat(-1, -1);
             }
 
             if (oszlop - 1 < 0)
             {
-                korulotte[2] = new MezoAdat(-1, -1, null);
+                korulotte[2] = new MezoAdat(-1, -1);
             }
 
             if (sor - 1 < 0)
             {
-                korulotte[3] = new MezoAdat(-1, -1, null);
+                korulotte[3] = new MezoAdat(-1, -1);
             }
 
             for (int i = 0; i < 4; i++)
@@ -62,22 +62,22 @@ namespace GameOfLife
 
             if (oszlop + 2 >= Adatok.Mezo.GetLength(0))
             {
-                korulotte[0] = new MezoAdat(-1, -1, null);
+                korulotte[0] = new MezoAdat(-1, -1);
             }
 
             if (sor + 2 >= Adatok.Mezo.GetLength(1))
             {
-                korulotte[1] = new MezoAdat(-1, -1, null);
+                korulotte[1] = new MezoAdat(-1, -1);
             }
 
             if (oszlop - 2 < 0)
             {
-                korulotte[2] = new MezoAdat(-1, -1, null);
+                korulotte[2] = new MezoAdat(-1, -1);
             }
 
             if (sor - 2 < 0)
             {
-                korulotte[3] = new MezoAdat(-1, -1, null);
+                korulotte[3] = new MezoAdat(-1, -1);
             }
 
             for (int i = 0; i < 4; i++)

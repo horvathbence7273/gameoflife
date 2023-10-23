@@ -54,6 +54,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="IAdat.cs" />
+    <Compile Include="Hova.cs" />
     <Compile Include="Kepek.cs" />
     <Compile Include="Korulotte.cs" />
     <Compile Include="MezoAdat.cs" />

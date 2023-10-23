@@ -11,5 +11,7 @@ namespace GameOfLife
     {
         public static ImageList Fuvek = new ImageList();
         public static ImageList Allatok = new ImageList();
+
+        public static PictureBox[,] KepMezo;
     }
 }

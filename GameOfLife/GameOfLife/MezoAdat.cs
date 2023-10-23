@@ -14,33 +14,31 @@ namespace GameOfLife
         public int FuAllapot { get; set; }
         public bool Mozgott { get; set; }
         public bool Szult {  get; set; }
-        public PictureBox KepDoboz { get; set; }
 
-        public MezoAdat(int Ehesseg, int FuAllapot, PictureBox KepDoboz)
+        public MezoAdat(int Ehesseg, int FuAllapot)
         {
             this.Ehesseg = Ehesseg;
             this.FuAllapot = FuAllapot;
             Mozgott = false;
             Szult = false;
-            this.KepDoboz = KepDoboz;
         }
 
-        public virtual void Frissites()
+        public virtual void Frissites(int oszlop, int sor)
         {
-            KepDoboz.Image = null;
-            KepDoboz.BackgroundImage = Kepek.Fuvek.Images[FuAllapot];
+            Kepek.KepMezo[oszlop,sor].Image = null;
+            Kepek.KepMezo[oszlop,sor].BackgroundImage = Kepek.Fuvek.Images[FuAllapot];
         }
 
-        public virtual void FuNo()
+        public virtual void FuNo(int oszlop, int sor)
         {
             if (FuAllapot < 2)
             {
                 FuAllapot++;
             }
-            Frissites();
+            Frissites(oszlop, sor);
            
         }
-        public void KorVege()
+        public void KorVege(int oszlop, int sor)
         {
             Szult = false;
             Mozgott = false;
@@ -48,23 +46,23 @@ namespace GameOfLife
             {
                 Ehesseg--;
             }
-            FuNo();
+            FuNo(oszlop, sor);
         }
 
-        public virtual void Mozog(int oszlopok, int sorok)
+        public virtual void Mozog(int oszlop, int sor)
         {
         }
 
-        public virtual bool Eszik(int oszlopok, int sorok)
+        public virtual bool Eszik(int oszlop, int sor)
         {
             return false;
         }
 
-        public virtual void Szul(int oszlopok, int sorok)
+        public virtual void Szul(int oszlop, int sor)
         {
         }
 
-        public virtual void Meghal(int oszlopok, int sorok)
+        public virtual void Meghal(int oszlop, int sor)
         {
         }
     }

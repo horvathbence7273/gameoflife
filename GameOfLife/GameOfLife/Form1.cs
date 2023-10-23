@@ -67,6 +67,7 @@ namespace GameOfLife
             }
             pan_keret.Controls.Clear();
             Adatok.Mezo = new MezoAdat[oszlopok,sorok];
+            Kepek.KepMezo = new PictureBox[oszlopok, sorok];
 
             for (int i = 0; i < oszlopok; i++)
             {
@@ -94,7 +95,8 @@ namespace GameOfLife
                             fuAllapot = 2;
                             break;
                     }
-                    Adatok.Mezo[i,j] = new MezoAdat(ehesseg, fuAllapot, KepDoboz);
+                    Adatok.Mezo[i,j] = new MezoAdat(ehesseg, fuAllapot);
+                    Kepek.KepMezo[i, j] = KepDoboz;
                 }
             }
 
@@ -105,7 +107,7 @@ namespace GameOfLife
 
                 if (Adatok.Mezo[x, y] is MezoAdat)
                 {
-                    Adatok.Mezo[x, y] = new Nyul(5, Adatok.Mezo[x, y].FuAllapot, Adatok.Mezo[x, y].KepDoboz);
+                    Adatok.Mezo[x, y] = new Nyul(5, Adatok.Mezo[x, y].FuAllapot);
                     nyulak--;
                 }
             }
@@ -117,7 +119,7 @@ namespace GameOfLife
 
                 if (Adatok.Mezo[x,y] is MezoAdat)
                 {
-                    Adatok.Mezo[x, y] = new Roka(10, Adatok.Mezo[x, y].FuAllapot, Adatok.Mezo[x, y].KepDoboz);
+                    Adatok.Mezo[x, y] = new Roka(10, Adatok.Mezo[x, y].FuAllapot);
                     rokak--;
                 }
             }
@@ -126,7 +128,7 @@ namespace GameOfLife
             {
                 for (int j = 0; j < Adatok.Mezo.GetLength(1); j++)
                 {
-                    Adatok.Mezo[i, j].Frissites();
+                    Adatok.Mezo[i, j].Frissites(oszlop: i, sor: j);
                 }
             }
             btn_start.Enabled = true;
@@ -146,17 +148,17 @@ namespace GameOfLife
             {
                 for (int j = 0; j < Adatok.Mezo.GetLength(1); j++)
                 {
-                    Adatok.Mezo[i, j].Meghal(i,j);
-                    if (Adatok.Mezo[i, j].Eszik(i, j) == false)
+                    Adatok.Mezo[i, j].Meghal(oszlop: i, sor: j);
+                    if (Adatok.Mezo[i, j].Szult == false)
+                    {
+                        Adatok.Mezo[i, j].Szul(oszlop: i, sor: j);
+                    }
+                    if (Adatok.Mezo[i, j].Eszik(oszlop: i, sor: j) == false)
                     {
                         if (Adatok.Mezo[i, j].Mozgott == false)
                         {
-                            Adatok.Mezo[i, j].Mozog(i, j);   
+                            Adatok.Mezo[i, j].Mozog(oszlop: i, sor: j);
                         }
-                    }
-                    if (Adatok.Mezo[i, j].Szult == false)
-                    {
-                        Adatok.Mezo[i, j].Szul(i, j);
                     }
                 }
             }
@@ -164,7 +166,7 @@ namespace GameOfLife
             {
                 for (int j = 0; j < Adatok.Mezo.GetLength(1); j++)
                 {
-                    Adatok.Mezo[i, j].KorVege();
+                    Adatok.Mezo[i, j].KorVege(oszlop: i, sor: j);
                 }
             }
         }
@@ -183,17 +185,17 @@ namespace GameOfLife
             {
                 for (int j = 0; j < Adatok.Mezo.GetLength(1); j++)
                 {
-                    Adatok.Mezo[i, j].Meghal(i, j);
-                    if (Adatok.Mezo[i, j].Eszik(i, j) == false)
+                    Adatok.Mezo[i, j].Meghal(oszlop: i, sor: j);
+                    if (Adatok.Mezo[i, j].Szult == false)
+                    {
+                        Adatok.Mezo[i, j].Szul(oszlop: i, sor: j);
+                    }
+                    if (Adatok.Mezo[i, j].Eszik(oszlop: i, sor: j) == false)
                     {
                         if (Adatok.Mezo[i, j].Mozgott == false)
                         {
-                            Adatok.Mezo[i, j].Mozog(i, j);
+                            Adatok.Mezo[i, j].Mozog(oszlop: i, sor: j);
                         }
-                    }
-                    if (Adatok.Mezo[i, j].Szult == false)
-                    {
-                        Adatok.Mezo[i, j].Szul(i, j);
                     }
                 }
             }
@@ -201,7 +203,7 @@ namespace GameOfLife
             {
                 for (int j = 0; j < Adatok.Mezo.GetLength(1); j++)
                 {
-                    Adatok.Mezo[i, j].KorVege();
+                    Adatok.Mezo[i, j].KorVege(oszlop: i, sor: j);
                 }
             }
         }
