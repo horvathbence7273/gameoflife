@@ -45,7 +45,6 @@
             this.t_timer = new System.Windows.Forms.Timer(this.components);
             this.il_fuvek = new System.Windows.Forms.ImageList(this.components);
             this.il_allatok = new System.Windows.Forms.ImageList(this.components);
-            this.teszt = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // pan_keret
@@ -177,16 +176,6 @@
             this.il_allatok.Images.SetKeyName(0, "Nyul.png");
             this.il_allatok.Images.SetKeyName(1, "Roka.png");
             // 
-            // teszt
-            // 
-            this.teszt.Location = new System.Drawing.Point(525, 4);
-            this.teszt.Name = "teszt";
-            this.teszt.Size = new System.Drawing.Size(102, 52);
-            this.teszt.TabIndex = 12;
-            this.teszt.Text = "Teszt";
-            this.teszt.UseVisualStyleBackColor = true;
-            this.teszt.Click += new System.EventHandler(this.teszt_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -194,7 +183,6 @@
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(910, 626);
-            this.Controls.Add(this.teszt);
             this.Controls.Add(this.btn_end);
             this.Controls.Add(this.lb_roka);
             this.Controls.Add(this.lb_nyulak);
@@ -231,7 +219,6 @@
         private System.Windows.Forms.Timer t_timer;
         private System.Windows.Forms.ImageList il_fuvek;
         private System.Windows.Forms.ImageList il_allatok;
-        private System.Windows.Forms.Button teszt;
     }
 }
 

@@ -178,34 +178,5 @@ namespace GameOfLife
             btn_end.Enabled = true;
             btn_generate.Enabled = false;
         }
-
-        private void teszt_Click(object sender, EventArgs e)
-        {
-            for (int i = 0; i < Adatok.Mezo.GetLength(0); i++)
-            {
-                for (int j = 0; j < Adatok.Mezo.GetLength(1); j++)
-                {
-                    Adatok.Mezo[i, j].Meghal(oszlop: i, sor: j);
-                    if (Adatok.Mezo[i, j].Szult == false)
-                    {
-                        Adatok.Mezo[i, j].Szul(oszlop: i, sor: j);
-                    }
-                    if (Adatok.Mezo[i, j].Eszik(oszlop: i, sor: j) == false)
-                    {
-                        if (Adatok.Mezo[i, j].Mozgott == false)
-                        {
-                            Adatok.Mezo[i, j].Mozog(oszlop: i, sor: j);
-                        }
-                    }
-                }
-            }
-            for (int i = 0; i < Adatok.Mezo.GetLength(0); i++)
-            {
-                for (int j = 0; j < Adatok.Mezo.GetLength(1); j++)
-                {
-                    Adatok.Mezo[i, j].KorVege(oszlop: i, sor: j);
-                }
-            }
-        }
     }
 }
